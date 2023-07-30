@@ -47,12 +47,17 @@ posts = [
 # Create your views here.
 def index(request):
     template = 'blog/index.html'
-    return render(request, template)
+    context = {'posts': posts}
+    return render(request, template, context)
 
 
-def post_detail(request):
-    pass
+def post_detail(request, pk):
+    template = 'blog/detail.html'
+    context = {'post': posts[pk]}
+    return render(request, template, context)
 
 
-def category_posts(request):
-    pass
+def category_posts(request, category_slug):
+    template = 'blog/category.html'
+    context = {'category_slug': category_slug}
+    return render(request, template, context)
