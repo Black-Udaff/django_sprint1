@@ -53,13 +53,11 @@ def index(request):
 
 def post_detail(request, pk):
     template = "blog/detail.html"
-    post = next((p for p in posts if p["id"] == pk), None)
-
-    if not post:
-        # Обрабатываем случай, когда пост с указанным ID не найден
-        return HttpResponseNotFound("Пост не найден")
-    context = {'post': post}
-    return render(request, template, context)
+    for post in posts:
+        if post['id'] == pk:
+            context = {'post': post}
+            return render(request, template, context)
+    return HttpResponseNotFound("Пост не найден")
 
 
 def category_posts(request, category_slug):
